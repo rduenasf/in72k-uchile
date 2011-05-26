@@ -19,6 +19,7 @@ var db = Mongoose.connect('mongodb://localhost/blog'),
 /* app server */
   var app = express.createServer();
 
+  app.use(express.favicon(__dirname + '/../../cliente/mongo-favicon.ico'));
   app.use(express.static(__dirname + '/../../cliente'));
 
   /* use jade template engine */
@@ -36,6 +37,8 @@ var db = Mongoose.connect('mongodb://localhost/blog'),
     });
 
 /* Everything's ok, let's listen */
-app.listen(8124);
-console.log('Server running at http://127.0.0.1:8124/');
-console.log('Dynamic view at http://127.0.0.1:8124/dynamic/');
+var port = 8125;
+app.listen(port);
+var url = "nodemongoserver";
+console.log('Server running at http://' + url + ':' + port + '/');
+console.log('Dynamic view at http://' + url + ':' + port + '/dynamic/');

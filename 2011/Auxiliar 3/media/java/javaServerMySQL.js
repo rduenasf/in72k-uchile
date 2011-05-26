@@ -19,6 +19,7 @@ var express = require('express')
 /* app server */
   var app = express.createServer();
 
+  app.use(express.favicon(__dirname + '/../../cliente/mysql-favicon.ico'));
   app.use(express.static(__dirname + '/../../cliente'));
 
   /* use jade template engine */
@@ -30,12 +31,14 @@ var express = require('express')
   /* ROUTING: App Server */
     /* shows the blog index */
     app.get('/dynamic', function(req,res){
-      Post.findAll().on('success', function(posts) {
+      Post.findAll({order: 'id ASC'}).on('success', function(posts) {
         res.render('index', {base: 'dynamic', count: posts.length, posts: posts});
       });
     });
 
 /* Everything's ok, let's listen */
-app.listen(8124);
-console.log('Server running at http://127.0.0.1:8124/');
-console.log('Dynamic view at http://127.0.0.1:8124/dynamic/');
+var port = 8124;
+app.listen(port);
+var url = "nodemysqlserver";
+console.log('Server running at http://' + url + ':' + port + '/');
+console.log('Dynamic view at http://' + url + ':' + port + '/dynamic/');
