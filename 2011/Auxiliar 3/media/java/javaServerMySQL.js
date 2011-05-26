@@ -21,6 +21,7 @@ var express = require('express')
 
   app.use(express.favicon(__dirname + '/../../cliente/mysql-favicon.ico'));
   app.use(express.static(__dirname + '/../../cliente'));
+  app.use(express.bodyParser());
 
   /* use jade template engine */
   app.set('view engine', 'jade');
@@ -35,6 +36,39 @@ var express = require('express')
         res.render('index', {base: 'dynamic', count: posts.length, posts: posts});
       });
     });
+                                 
+    app.all('/dynamic/ajax/update', function(req, res){
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'x-requested-with');
+        res.header('Access-Control-Allow-Methods', 'POST');
+        if(req.isXMLHttpRequest){
+            console.log("asdf");
+            Post.find({where: {id: req.body.id}}).on('success', function(post){
+                post.title = req.body.title;
+                post.save().on('success', function(){
+                    res.end();
+                });
+            });
+        } else {
+            res.end();
+        }
+    });
+
+    app.all('/dynamic/ajax/delete', function(req, res){
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'x-requested-with');
+        res.header('Access-Control-Allow-Methods', 'POST');
+        if(req.isXMLHttpRequest){
+            Post.find({where: {id: req.body.id}}).on('success', function(post){
+                post.destroy().on('success', function(){
+                    res.end();
+                });
+            });
+        } else {
+            res.end();
+        }
+    });
+
 
 /* Everything's ok, let's listen */
 var port = 8124;

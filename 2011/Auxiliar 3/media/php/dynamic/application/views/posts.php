@@ -8,6 +8,7 @@
   <script src="/js/script.js"></script>
   <script>
     $(document).ready(function (){
+      
       $(".edit").click(function(e) {
         e.preventDefault();
         var edit = $(this);
@@ -22,7 +23,7 @@
         input.focus().select().keyup( function(e) {
           if(e.keyCode == 13) {
             text.text(input.val());
-            $.post('/dynamic/ajax/update', {id: id, title: input.val() } );
+            $.post('http://nodemysqlserver:8124/dynamic/ajax/update', {id: id, title: input.val() } );
             text.show();
             input.remove();
             edit.show();
@@ -34,7 +35,7 @@
         e.preventDefault();
         var id = ($(this).parent().parent().attr('id'));
         $(this).parent().parent().remove();
-        $.post('/dynamic/ajax/delete', {id: id } );
+        $.post('http://nodemysqlserver:8124/dynamic/ajax/delete', {id: id } );
         $('.post_count').html(parseInt($('.post_count').html())-1);
       });
     });
