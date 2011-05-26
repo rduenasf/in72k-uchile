@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+var express = require('express')
+  , Mongoose = require('mongoose');
+
+/* MongoDB stuff */
+  /* Defining the Schema for a Model */
+  Mongoose.model('Posts', new Mongoose.Schema({
+    id          : {type: Mongoose.Schema.ObjectId}
+  , title       : {type: String}
+  , body        : {type: String}
+  , createdAt   : {type: Date, default: Date.now}
+  , updatedAt   : {type: Date, default: Date.now}
+  }));
+
+/* Connecting and loading models */
+var db = Mongoose.connect('mongodb://localhost/blog'),
+    blog = { posts: db.model('Posts') };
+
+/* app server */
+  var app = express.createServer();
+
+  app.use(express.static(__dirname + '/../../cliente'));
+
+  /* use jade template engine */
+  app.set('view engine', 'jade');
+  app.set('view options');
+
+  app.dynamicHelpers({ base: function() { return 'dynamic'; } });
+
+  /* ROUTING: App Server */
+    /* shows the blog index */
+    app.get('/dynamic', function(req,res){
+      blog.posts.find({}, function(err, posts) {
+        res.render('index', {base: 'dynamic', count: posts.length, posts: posts});
+      });
+    });
+
+/* Everything's ok, let's listen */
+app.listen(8124);
+console.log('Server running at http://127.0.0.1:8124/');
+console.log('Dynamic view at http://127.0.0.1:8124/dynamic/');
