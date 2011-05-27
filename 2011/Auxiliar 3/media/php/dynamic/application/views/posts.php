@@ -3,9 +3,7 @@
 <head>
   <title>Blog</title>
   <link rel="stylesheet" href="/css/style_dynamic.css">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.5.1.min.js"%3E%3C/script%3E'))</script>
-  <script src="/js/script.js"></script>
+  <script src="/js/jquery.min.js"></script>
   <script>
     $(document).ready(function (){
       
@@ -23,7 +21,7 @@
         input.focus().select().keyup( function(e) {
           if(e.keyCode == 13) {
             text.text(input.val());
-            $.post('http://nodemysqlserver:8124/dynamic/ajax/update', {id: id, title: input.val() } );
+            $.post('/dynamic/ajax/update', {id: id, title: input.val() } );
             text.show();
             input.remove();
             edit.show();
@@ -35,7 +33,7 @@
         e.preventDefault();
         var id = ($(this).parent().parent().attr('id'));
         $(this).parent().parent().remove();
-        $.post('http://nodemysqlserver:8124/dynamic/ajax/delete', {id: id } );
+        $.post('/dynamic/ajax/delete', {id: id } );
         $('.post_count').html(parseInt($('.post_count').html())-1);
       });
     });
