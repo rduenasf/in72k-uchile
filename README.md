@@ -7,7 +7,7 @@
 Demostración de arquitectura de tres capas y modelo MVC. Ejemplos a mostrar:
 
 * Archivos estáticos sobre Apache.
-* PHP+MySQL (Framework MVC) sobre Apache. También se realizará una pequeña demostración de peticiones AJAX hacia PHP y Node.js.
-* Node.js sirviendo archivos estáticos.
-* Node.js sirviendo una aplicación dinámica con motor MySQL.
-* Node.js sirviendo una aplicación dinámica con motor MongoDB.
+* Aplicación [PHP](http://www.php.net) sobre [CodeIgniter](http://codeigniter.com) con motor [MySQL](http://www.mysql.com). También se realizará una pequeña demostración de peticiones AJAX hacia esta aplicación utilizando la librería [jQuery](http://www.jquery.com).
+* [Node.js](http://nodejs.org) sirviendo archivos estáticos.
+* [Node.js](http://nodejs.org) sirviendo una aplicación dinámica sobre una base de datos [MySQL](http://www.mysql.com).
+* [Node.js](http://nodejs.org) sirviendo una aplicación dinámica sobre una base de datos [MongoDB](http://www.mongodb.org).
